@@ -1,52 +1,57 @@
 <div>
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div [(class)] = "myclass">
-                        <i class="fa fa-list"></i> Angular
-                    </div>
-                    <div class="card-body">
-                        <label for="">Welcome ! {{ title }}</label>
-                        <label>
-                            Interpolation
-                            PropertyBinding 
-                            one way binding  
-                            Two Way
-                        </label>
-                        <h2>I am {{ reglious }}</h2>
-                        <input type="text" class="form-control" [(ngModel)] ="title" />
-                        <input type="text" class="form-control mt-3" [(ngModel)] ="reglious" />
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-danger float-right" (click)="abc('Asad Mukhtar Click This')"> <i class="fa fa-thumbs-up"></i> Click Me</button>
-                    </div>
+        <button class="btn btn-danger" (click) = "tester()">Click Me</button>
+        <hr />
+        <div *ngIf="Customerbox">
+            <div class="row">
+                <div class="col-lg-4">
+                    <form (ngSubmit) = "InsertCustomer()">
+                        <div class="card">
+                            <div [(class)] = "myclass">
+                                <i class="fa fa-list"></i> Angular
+                            </div>
+                            <div class="card-body">
+                                <label for="">Welcome ! {{ title }}</label>
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" [(ngModel)] ="customerdata.name" name="name" />
+                                <label for="">Email</label>
+                                <input type="text" class="form-control mt-3" [(ngModel)] ="customerdata.email" name="email" />
+                                <label for="">Whats App</label>
+                                <input type="text" class="form-control mt-3" [(ngModel)] ="customerdata.whatsapp" name="whatsapp" />
+                                <label for="">City</label>
+                                <input type="text" class="form-control mt-3" [(ngModel)] ="customerdata.city" name="city" />
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-danger float-right" type="submit"> <i class="fa fa-thumbs-up"></i> Click Me</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-users"></i> Customers
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-users"></i> Customers
+                        </div>
+                        <table class="table table-bordered table-striped table-hover">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>What's App</th>
+                                <th>City</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr *ngFor="let customer of customers">
+                                <td> #{{ customer.id }} {{ customer.name }}</td>
+                                <td>{{ customer.email }}</td>
+                                <td>{{ customer.whatsapp }}</td>
+                                <td>{{ customer.city }}</td>
+                                <th>
+                                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                    <button class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
+                                </th>
+                            </tr>
+                        </table>
                     </div>
-                    <table class="table table-bordered table-striped table-hover">
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>What's App</th>
-                            <th>City</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr *ngFor="let customer of customers">
-                            <td> #{{ customer.id }} {{ customer.name }}</td>
-                            <td>{{ customer.email }}</td>
-                            <td>{{ customer.whatsapp }}</td>
-                            <td>{{ customer.city }}</td>
-                            <th>
-                                <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                <button class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
-                            </th>
-                        </tr>
-                    </table>
                 </div>
             </div>
         </div>

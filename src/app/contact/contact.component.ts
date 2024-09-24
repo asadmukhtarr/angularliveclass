@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-contact',
@@ -14,20 +15,41 @@ export class ContactComponent {
   reglious = "Muslim";
   myclass = "card-header bg-danger text-white";
   customers: any[] = [];
-  
-  constructor() {
-    this.getMydata();
+  Customerbox : boolean = true;
+  customerdata = {
+    name: '',
+    email:'',
+    whatsapp:'',
+    city:''
+  }
+  constructor(public customer:CustomerService) {
+    this.customer.testingService();
   }
 
+  async ngOnInit(): Promise<void> {
+    await this.customer.getMydata();
+    this.customers = this.customer.customers;
+}
   abc(content: any) {
     this.title = content;
   }
-
-  async getMydata() {
-//      fetch().then(response => response.json()).then(data => console.log())
-      const response = await fetch('https://66a26d1d967c89168f200e0b.mockapi.io/api/customers/customers');
-      const data = await response.json(); // converting into json format ..
-      this.customers = data; // all data from api storing into customer variable ..
-     // console.log(this.customers.length); // Log after data is assigned
+  tester(){
+    if(this.Customerbox === true){
+      this.Customerbox = false;
+    } else {
+      this.Customerbox = true;
+    }
+  }
+  InsertCustomer(){
+     // console.log(this.customerdata);
+    fetch("https://66a26d1d967c89168f200e0b.mockapi.io/api/customers/customers",{
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.customerdata),
+    }).then((response) => response.json()).then((data) => console.log(data));
+    this.customer.getMydata();
+    this.customers = this.customer.customers;
   }
 }
